@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
-const { LimitedArray, getIndexBelowMax } = require('./hash-table-helpers');
+const { LimitedLinkedList, getIndexBelowMax } = require('./hash-table-helpers');
 
 class HashTable {
   constructor(limit = 8) {
     this.limit = limit;
-    this.storage = new LimitedArray(this.limit);
+    this.storage = new LimitedLinkedList(this.limit);
     // Do not modify anything inside of the constructor
   }
 
   resize() {
     this.limit *= 2;
     const oldStorage = this.storage;
-    this.storage = new LimitedArray(this.limit);
+    this.storage = new LimitedLinkedList(this.limit);
     oldStorage.each((bucket) => {
       if (!bucket) return;
       bucket.forEach((pair) => {

@@ -49,7 +49,45 @@ const getIndexBelowMax = (str, max) => {
   return hash % max;
 };
 
+class LimitedLinkedList {
+  constructor(limit) {
+    this.limit = limit;
+    this.head = null;
+    this.tail = null;
+  }
+  get(index) {
+    let node = this.head;
+    let count = 0;
+    while (node !== null) {
+      node = node.next;
+      if (count === index) {
+        return node.value;
+      }
+      count++;
+    }
+  }
+  set(index, value) {
+    const node = this.get(index);
+    const newNode = {
+      next: null,
+      value,
+    };
+    newNode.next = node.next;
+    node.next = newNode;
+  }
+  each(cb) {
+    let node = this.head;
+    let index = 0;
+    while (node !== null) {
+      cb(node.value, index);
+      node = node.next;
+      index++;
+    }
+  }
+}
+
 module.exports = {
   LimitedArray,
   getIndexBelowMax,
+  LimitedLinkedList,
 };
